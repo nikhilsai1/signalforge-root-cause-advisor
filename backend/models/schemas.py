@@ -25,6 +25,7 @@ class RagAnswer(BaseModel):
     answer: str
     citations: list[str]
     no_match: bool
+    error: Optional[str] = None
 
 
 class ExplainAlarmRequest(BaseModel):

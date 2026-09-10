@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from sentence_transformers import SentenceTransformer
 
 from services.chroma_client import get_sop_collection
-from services.ollama_client import ollama_client
+from services.ollama_client import OllamaUnavailableError, ollama_client
 
 _embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -13,23 +13,46 @@ _SECTION_RE_HASH = re.compile(r"^#\s*(\d+)\s*$", re.MULTILINE)
 
 NO_MATCH_PHRASE = "no matching procedure found"
 
-SYSTEM_PROMPT = (
+# Built dynamically per-call by _build_system_prompt() rather than as one
+# static prompt. Reason: an earlier version always described the operator-note
+# citation convention even when no note was actually retrieved for a given
+# query, and the model fabricated a fully-invented "[operator note on ...]"
+# citation, with plausible-sounding content, that did not exist anywhere in
+# ChromaDB. The concept must only be mentioned to the model when a real one
+# is present in that call's context, or it gets treated as a pattern to
+# follow rather than a fact to check.
+_SYSTEM_PROMPT_INTRO = (
     "You are an industrial operations assistant. Answer the operator's question "
     "using ONLY the context provided below. Synthesize a single, confident, "
     "actionable answer from ALL relevant context, even if the full answer is "
-    "spread across multiple entries. Context comes in two kinds: static SOP "
-    "sections, cited as [source ¶section], and operator notes - free-text "
-    "corrections a real operator logged after a static SOP turned out to be "
-    "wrong or incomplete, cited as [operator note on <alarm_tag>]. If an "
-    "operator note addresses the same point as a static SOP section, the "
-    "operator note is the current, field-verified guidance and takes "
-    "priority over the static SOP - follow it, and say so. Cite every claim "
-    "in the appropriate form. Do not hedge or discuss what the context does "
-    "or does not cover.\n\n"
-    "Only if NONE of the context is relevant to the question, respond with exactly "
-    f"and only: '{NO_MATCH_PHRASE.capitalize()}.' Do not use outside knowledge, and "
-    "do not mix this exact phrase into an otherwise-grounded answer."
+    "spread across multiple sections. For every claim, cite the section it came "
+    "from in the form [source ¶section]. Do not hedge or discuss what the "
+    "context does or does not cover. Do not invent, reference, or imply any "
+    "information - including any \"operator note\" - that is not explicitly "
+    "present in the context below."
 )
+
+_OPERATOR_NOTE_ADDENDUM = (
+    " The context below includes one or more operator notes - free-text "
+    "corrections a real operator logged after a static SOP turned out to be "
+    "wrong or incomplete, cited as [operator note on <alarm_tag>]. Where an "
+    "operator note addresses the same point as a static SOP section, the "
+    "operator note is the current, field-verified guidance and takes priority "
+    "over the static SOP - follow it, and say so."
+)
+
+_SYSTEM_PROMPT_TAIL = (
+    "\n\nOnly if NONE of the context is relevant to the question, respond with "
+    f"exactly and only: '{NO_MATCH_PHRASE.capitalize()}.' Do not use outside "
+    "knowledge, and do not mix this exact phrase into an otherwise-grounded answer."
+)
+
+
+def _build_system_prompt(chunks: list[dict]) -> str:
+    prompt = _SYSTEM_PROMPT_INTRO
+    if any(c.get("type") == "operator_note" for c in chunks):
+        prompt += _OPERATOR_NOTE_ADDENDUM
+    return prompt + _SYSTEM_PROMPT_TAIL
 
 # How much a fresh operator note's effective distance is reduced by, decaying
 # by half every OPERATOR_NOTE_BOOST_HALFLIFE_HOURS. A note logged seconds ago
@@ -134,13 +157,19 @@ def retrieve(query: str, top_k: int = 3) -> list[dict]:
     for operator notes. This lets a fresh, relevant operator note out-rank a
     static SOP chunk that's nominally a slightly closer semantic match.
     """
-    collection = get_sop_collection()
-    if collection.count() == 0:
-        return []
+    try:
+        collection = get_sop_collection()
+        if collection.count() == 0:
+            return []
 
-    query_embedding = _embedder.encode([query]).tolist()
-    n_results = min(max(top_k * 3, top_k), collection.count())
-    results = collection.query(query_embeddings=query_embedding, n_results=n_results)
+        query_embedding = _embedder.encode([query]).tolist()
+        n_results = min(max(top_k * 3, top_k), collection.count())
+        results = collection.query(query_embeddings=query_embedding, n_results=n_results)
+    except Exception:
+        # Chroma unavailable/corrupted - degrade to "nothing retrieved" so
+        # generate_answer's existing no-match path handles it cleanly,
+        # rather than letting a storage-layer error crash the request.
+        return []
 
     hits = []
     for text, meta, distance in zip(
@@ -178,7 +207,9 @@ RELEVANCE_DISTANCE_THRESHOLD = 0.95
 def generate_answer(query: str, top_k: int = 3) -> dict:
     """Retrieve grounding context and generate a cited, grounded answer.
 
-    Returns {answer, citations, no_match}.
+    Returns {answer, citations, no_match, error}. Never raises - a down
+    Ollama or Chroma degrades to a clean no_match-shaped response instead
+    of crashing the request, so the UI never has to render a raw error.
     """
     chunks = retrieve(query, top_k=top_k)
     relevant_chunks = [c for c in chunks if c["distance"] <= RELEVANCE_DISTANCE_THRESHOLD]
@@ -188,6 +219,7 @@ def generate_answer(query: str, top_k: int = 3) -> dict:
             "answer": "No matching procedure found in the SOP knowledge base.",
             "citations": [],
             "no_match": True,
+            "error": None,
         }
 
     context = "\n\n".join(
@@ -195,11 +227,63 @@ def generate_answer(query: str, top_k: int = 3) -> dict:
     )
     prompt = f"Context:\n{context}\n\nOperator question: {query}"
 
-    answer = ollama_client.generate(prompt, system=SYSTEM_PROMPT)
+    try:
+        answer = ollama_client.generate(prompt, system=_build_system_prompt(relevant_chunks))
+    except OllamaUnavailableError:
+        return {
+            "answer": "The AI assistant is temporarily unavailable. Please retry, "
+            "or consult the SOP directly: "
+            + ", ".join(sorted({_format_citation(c) for c in relevant_chunks})),
+            "citations": [],
+            "no_match": True,
+            "error": "ollama_unavailable",
+        }
+
     # Only treat as a true no-match if the phrase leads the answer, not if the
     # model mentions it in passing while still giving grounded content.
     no_match = answer.strip().lower().lstrip("'\"").startswith(NO_MATCH_PHRASE)
 
     citations = [] if no_match else sorted({_format_citation(c) for c in relevant_chunks})
 
-    return {"answer": answer, "citations": citations, "no_match": no_match}
+    return {"answer": answer, "citations": citations, "no_match": no_match, "error": None}
+
+
+SHIFT_HANDOVER_SYSTEM_PROMPT = (
+    "You write concise, professional shift handover summaries for industrial "
+    "operators. Use only the alarms and notes provided below - no outside "
+    "knowledge. Group related alarms under their likely root cause rather than "
+    "listing each one individually. Flag anything still unresolved. Keep it "
+    "under 150 words."
+)
+
+
+def summarize_shift_handover(alarms: list[dict], notes: list[str]) -> dict:
+    """Summarize recent alarms + operator notes into a shift handover.
+    Grounded only in what's passed in, not SOP retrieval. Returns {summary}.
+    """
+    if not alarms and not notes:
+        return {"summary": "No alarms or notes to report for this shift."}
+
+    alarm_lines = "\n".join(
+        f"- {a.get('timestamp', '')} {a.get('tag', '')}: "
+        f"{a.get('description') or a.get('message') or ''} "
+        f"(priority: {a.get('priority', '')})"
+        for a in alarms
+    )
+    notes_block = "\n".join(f"- {n}" for n in notes) if notes else "(none)"
+
+    prompt = (
+        f"Alarms this shift:\n{alarm_lines or '(none)'}\n\n"
+        f"Operator notes this shift:\n{notes_block}\n\n"
+        "Write the shift handover summary."
+    )
+
+    try:
+        summary = ollama_client.generate(prompt, system=SHIFT_HANDOVER_SYSTEM_PROMPT)
+    except OllamaUnavailableError:
+        return {
+            "summary": "AI summary unavailable (Ollama unreachable). Raw counts for "
+            f"this shift: {len(alarms)} alarms, {len(notes)} operator notes."
+        }
+
+    return {"summary": summary}
