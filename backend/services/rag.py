@@ -7,7 +7,8 @@ from services.ollama_client import ollama_client
 
 _embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
-_SECTION_RE = re.compile(r"^#\s*(\d+)\s*$", re.MULTILINE)
+_SECTION_RE_PILCROW = re.compile(r"^¶\s*(\d+)\.?\s*(.*)$", re.MULTILINE)
+_SECTION_RE_HASH = re.compile(r"^#\s*(\d+)\s*$", re.MULTILINE)
 
 NO_MATCH_PHRASE = "no matching procedure found"
 
@@ -16,7 +17,7 @@ SYSTEM_PROMPT = (
     "using ONLY the SOP context provided below. Synthesize a single, confident, "
     "actionable answer from ALL relevant sections in the context, even if the full "
     "answer is spread across multiple sections. For every claim, cite the section "
-    "it came from in the form [source §section]. Do not hedge or discuss what the "
+    "it came from in the form [source ¶section]. Do not hedge or discuss what the "
     "context does or does not cover.\n\n"
     "Only if NONE of the context is relevant to the question, respond with exactly "
     f"and only: '{NO_MATCH_PHRASE.capitalize()}.' Do not use outside knowledge, and "
@@ -25,18 +26,30 @@ SYSTEM_PROMPT = (
 
 
 def chunk_sop(text: str, source_name: str) -> list[dict]:
-    """Split a plain-text SOP into numbered sections.
+    """Split an SOP into numbered sections.
 
-    Sections are marked by a line containing only '# <n>' (e.g. '# 3').
+    Supports two section-marker styles:
+      - '¶<n>. <Title>' inline paragraph markers (the real SOP format used
+        under data/sops/), where <Title> is folded into the chunk body.
+      - A line containing only '# <n>' (e.g. '# 3'), used by throwaway
+        test fixtures.
     Returns a list of {source, section, text} dicts, one per section.
     """
-    matches = list(_SECTION_RE.finditer(text))
+    matches = list(_SECTION_RE_PILCROW.finditer(text))
+    pilcrow = bool(matches)
+    if not matches:
+        matches = list(_SECTION_RE_HASH.finditer(text))
+
     chunks = []
     for i, m in enumerate(matches):
         section = m.group(1)
         start = m.end()
         end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
         body = text[start:end].strip()
+        if pilcrow:
+            title = m.group(2).strip()
+            if title:
+                body = f"{title}\n{body}" if body else title
         if body:
             chunks.append({"source": source_name, "section": section, "text": body})
     return chunks
@@ -83,7 +96,15 @@ def retrieve(query: str, top_k: int = 3) -> list[dict]:
 def _format_citation(chunk: dict) -> str:
     if chunk.get("type") == "operator_note":
         return f"[operator note on {chunk['alarm_tag']}]"
-    return f"[{chunk['source']} §{chunk['section']}]"
+    return f"[{chunk['source']} ¶{chunk['section']}]"
+
+
+# Empirically calibrated: genuinely relevant chunks scored <=0.89 distance,
+# tangentially-related-but-not-actually-applicable content started at ~1.0,
+# and unrelated questions started at ~1.57 (see test_real_sops.py findings).
+# Chunks past this are dropped before the LLM ever sees them, so the
+# no-match guardrail doesn't depend on the model correctly self-policing.
+RELEVANCE_DISTANCE_THRESHOLD = 0.95
 
 
 def generate_answer(query: str, top_k: int = 3) -> dict:
@@ -92,7 +113,9 @@ def generate_answer(query: str, top_k: int = 3) -> dict:
     Returns {answer, citations, no_match}.
     """
     chunks = retrieve(query, top_k=top_k)
-    if not chunks:
+    relevant_chunks = [c for c in chunks if c["distance"] <= RELEVANCE_DISTANCE_THRESHOLD]
+
+    if not relevant_chunks:
         return {
             "answer": "No matching procedure found in the SOP knowledge base.",
             "citations": [],
@@ -100,7 +123,7 @@ def generate_answer(query: str, top_k: int = 3) -> dict:
         }
 
     context = "\n\n".join(
-        f"{_format_citation(c)}\n{c['text']}" for c in chunks
+        f"{_format_citation(c)}\n{c['text']}" for c in relevant_chunks
     )
     prompt = f"Context:\n{context}\n\nOperator question: {query}"
 
@@ -109,6 +132,6 @@ def generate_answer(query: str, top_k: int = 3) -> dict:
     # model mentions it in passing while still giving grounded content.
     no_match = answer.strip().lower().lstrip("'\"").startswith(NO_MATCH_PHRASE)
 
-    citations = [] if no_match else sorted({_format_citation(c) for c in chunks})
+    citations = [] if no_match else sorted({_format_citation(c) for c in relevant_chunks})
 
     return {"answer": answer, "citations": citations, "no_match": no_match}
