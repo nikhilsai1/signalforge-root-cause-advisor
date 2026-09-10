@@ -1,22 +1,26 @@
 import { useState } from "react";
-import { initialChatLog } from "../data/mockData";
+import { askQuestion } from "../api";
 
 export default function ChatPanel() {
-  const [log, setLog] = useState(initialChatLog);
+  const [log, setLog] = useState([]);
   const [draft, setDraft] = useState("");
+  const [sending, setSending] = useState(false);
 
-  function handleSend() {
+  async function handleSend() {
     const text = draft.trim();
-    if (!text) return;
-    setLog((prev) => [
-      ...prev,
-      { role: "operator", text },
-      {
-        role: "copilot",
-        text: "No backend connected yet, this is placeholder shell text. Real answers will be grounded in retrieved SOPs once the RAG endpoint is wired in.",
-      },
-    ]);
+    if (!text || sending) return;
+    setLog((prev) => [...prev, { role: "operator", text }]);
     setDraft("");
+    setSending(true);
+    try {
+      const rag = await askQuestion(text);
+      const reply = rag.citations.length ? `${rag.answer} (${rag.citations.join(", ")})` : rag.answer;
+      setLog((prev) => [...prev, { role: "copilot", text: reply }]);
+    } catch (err) {
+      setLog((prev) => [...prev, { role: "copilot", text: `Couldn't reach the backend: ${err.message}` }]);
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -30,6 +34,12 @@ export default function ChatPanel() {
             <span className="chat-msg__text">{msg.text}</span>
           </div>
         ))}
+        {sending && (
+          <div className="chat-msg chat-msg--copilot">
+            <span className="chat-msg__role">Copilot</span>
+            <span className="chat-msg__text">Thinking…</span>
+          </div>
+        )}
       </div>
 
       <div className="chat-panel__input">
@@ -39,8 +49,11 @@ export default function ChatPanel() {
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          disabled={sending}
         />
-        <button onClick={handleSend}>Send</button>
+        <button onClick={handleSend} disabled={sending}>
+          Send
+        </button>
       </div>
     </div>
   );
