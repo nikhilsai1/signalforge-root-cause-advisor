@@ -1,4 +1,5 @@
 import re
+from datetime import datetime, timezone
 
 from sentence_transformers import SentenceTransformer
 
@@ -14,15 +15,41 @@ NO_MATCH_PHRASE = "no matching procedure found"
 
 SYSTEM_PROMPT = (
     "You are an industrial operations assistant. Answer the operator's question "
-    "using ONLY the SOP context provided below. Synthesize a single, confident, "
-    "actionable answer from ALL relevant sections in the context, even if the full "
-    "answer is spread across multiple sections. For every claim, cite the section "
-    "it came from in the form [source ¶section]. Do not hedge or discuss what the "
-    "context does or does not cover.\n\n"
+    "using ONLY the context provided below. Synthesize a single, confident, "
+    "actionable answer from ALL relevant context, even if the full answer is "
+    "spread across multiple entries. Context comes in two kinds: static SOP "
+    "sections, cited as [source ¶section], and operator notes - free-text "
+    "corrections a real operator logged after a static SOP turned out to be "
+    "wrong or incomplete, cited as [operator note on <alarm_tag>]. If an "
+    "operator note addresses the same point as a static SOP section, the "
+    "operator note is the current, field-verified guidance and takes "
+    "priority over the static SOP - follow it, and say so. Cite every claim "
+    "in the appropriate form. Do not hedge or discuss what the context does "
+    "or does not cover.\n\n"
     "Only if NONE of the context is relevant to the question, respond with exactly "
     f"and only: '{NO_MATCH_PHRASE.capitalize()}.' Do not use outside knowledge, and "
     "do not mix this exact phrase into an otherwise-grounded answer."
 )
+
+# How much a fresh operator note's effective distance is reduced by, decaying
+# by half every OPERATOR_NOTE_BOOST_HALFLIFE_HOURS. A note logged seconds ago
+# gets nearly the full boost; a week-old note gets almost none - stale
+# corrections shouldn't out-rank a static SOP forever.
+OPERATOR_NOTE_BOOST_MAX = 0.5
+OPERATOR_NOTE_BOOST_HALFLIFE_HOURS = 24.0
+
+
+def _recency_boost(timestamp_str: str | None) -> float:
+    if not timestamp_str:
+        return 0.0
+    try:
+        ts = datetime.fromisoformat(timestamp_str)
+    except ValueError:
+        return 0.0
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=timezone.utc)
+    age_hours = max((datetime.now(timezone.utc) - ts).total_seconds() / 3600, 0.0)
+    return OPERATOR_NOTE_BOOST_MAX * (0.5 ** (age_hours / OPERATOR_NOTE_BOOST_HALFLIFE_HOURS))
 
 
 def chunk_sop(text: str, source_name: str) -> list[dict]:
@@ -75,22 +102,57 @@ def ingest_sop_text(text: str, source_name: str) -> int:
     return len(chunks)
 
 
+def add_operator_note(alarm_tag: str, note_text: str) -> None:
+    """Store an operator's free-text correction for an alarm type. Embedded
+    and stored alongside static SOP chunks, tagged with a timestamp so
+    retrieve() can boost it by recency - this is what lets the system
+    self-improve: a fresh field correction outranks the static SOP on the
+    next matching query without needing to edit the SOP itself.
+    """
+    collection = get_sop_collection()
+    embedding = _embedder.encode([note_text]).tolist()
+    note_id = f"note-{alarm_tag}-{datetime.now(timezone.utc).isoformat()}"
+    collection.upsert(
+        ids=[note_id],
+        documents=[note_text],
+        embeddings=embedding,
+        metadatas=[
+            {
+                "type": "operator_note",
+                "alarm_tag": alarm_tag,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+        ],
+    )
+
+
 def retrieve(query: str, top_k: int = 3) -> list[dict]:
-    """Embed the query and return the top_k most relevant chunks."""
+    """Embed the query and return the top_k most relevant chunks.
+
+    Over-fetches candidates, then re-ranks by an "effective distance": raw
+    semantic distance for static SOP chunks, distance minus a recency boost
+    for operator notes. This lets a fresh, relevant operator note out-rank a
+    static SOP chunk that's nominally a slightly closer semantic match.
+    """
     collection = get_sop_collection()
     if collection.count() == 0:
         return []
 
     query_embedding = _embedder.encode([query]).tolist()
-    n_results = min(top_k, collection.count())
+    n_results = min(max(top_k * 3, top_k), collection.count())
     results = collection.query(query_embeddings=query_embedding, n_results=n_results)
 
     hits = []
     for text, meta, distance in zip(
         results["documents"][0], results["metadatas"][0], results["distances"][0]
     ):
-        hits.append({**meta, "text": text, "distance": distance})
-    return hits
+        effective_distance = distance
+        if meta.get("type") == "operator_note":
+            effective_distance = distance - _recency_boost(meta.get("timestamp"))
+        hits.append({**meta, "text": text, "distance": effective_distance})
+
+    hits.sort(key=lambda h: h["distance"])
+    return hits[:top_k]
 
 
 def _format_citation(chunk: dict) -> str:
