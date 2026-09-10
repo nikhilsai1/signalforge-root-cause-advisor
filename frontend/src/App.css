@@ -283,6 +283,27 @@ button {
   font-size: 13px;
 }
 
+.guidance-card--no_match {
+  border-color: var(--sev-medium);
+}
+
+.guidance-card--unavailable {
+  border-color: var(--sev-critical);
+}
+
+.guidance-card__status {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.guidance-card__status--no-match {
+  color: var(--sev-medium);
+}
+
+.guidance-card__status--unavailable {
+  color: var(--sev-critical);
+}
+
 .chat-panel {
   flex: 1;
   display: flex;

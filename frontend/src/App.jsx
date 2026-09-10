@@ -65,7 +65,15 @@ export default function App() {
     setGuidanceLoading(true);
     explainAlarm(alarm.tag)
       .then((rag) => setGuidance(toGuidance(rag, alarm.description || alarm.tag)))
-      .catch((err) => setGuidance({ rootCause: "Error", fix: err.message, citation: "", cited: false }))
+      .catch(() =>
+        setGuidance({
+          rootCause: alarm.description || alarm.tag,
+          fix: "The AI assistant is temporarily unavailable. Please retry, or consult the SOP directly.",
+          citation: "",
+          cited: false,
+          status: "unavailable",
+        })
+      )
       .finally(() => setGuidanceLoading(false));
   }, [selectedId, alarms]);
 
