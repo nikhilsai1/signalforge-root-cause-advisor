@@ -12,13 +12,15 @@ class OllamaClient:
         self.model = model
         self._client = ollama.Client()
 
-    def generate(self, prompt: str, system: str | None = None) -> str:
+    def generate(self, prompt: str, system: str | None = None, temperature: float = 0.1) -> str:
         messages = []
         if system:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": prompt})
 
-        response = self._client.chat(model=self.model, messages=messages)
+        response = self._client.chat(
+            model=self.model, messages=messages, options={"temperature": temperature}
+        )
         return response["message"]["content"].strip()
 
 

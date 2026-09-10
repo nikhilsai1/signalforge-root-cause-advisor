@@ -13,10 +13,14 @@ NO_MATCH_PHRASE = "no matching procedure found"
 
 SYSTEM_PROMPT = (
     "You are an industrial operations assistant. Answer the operator's question "
-    "using ONLY the SOP context provided below. For every claim, cite the section "
-    "it came from in the form [source §section]. If the context does not contain "
-    "an answer to the question, respond with exactly: "
-    f"'{NO_MATCH_PHRASE.capitalize()}.' Do not use outside knowledge."
+    "using ONLY the SOP context provided below. Synthesize a single, confident, "
+    "actionable answer from ALL relevant sections in the context, even if the full "
+    "answer is spread across multiple sections. For every claim, cite the section "
+    "it came from in the form [source §section]. Do not hedge or discuss what the "
+    "context does or does not cover.\n\n"
+    "Only if NONE of the context is relevant to the question, respond with exactly "
+    f"and only: '{NO_MATCH_PHRASE.capitalize()}.' Do not use outside knowledge, and "
+    "do not mix this exact phrase into an otherwise-grounded answer."
 )
 
 
@@ -101,7 +105,9 @@ def generate_answer(query: str, top_k: int = 3) -> dict:
     prompt = f"Context:\n{context}\n\nOperator question: {query}"
 
     answer = ollama_client.generate(prompt, system=SYSTEM_PROMPT)
-    no_match = NO_MATCH_PHRASE in answer.lower()
+    # Only treat as a true no-match if the phrase leads the answer, not if the
+    # model mentions it in passing while still giving grounded content.
+    no_match = answer.strip().lower().lstrip("'\"").startswith(NO_MATCH_PHRASE)
 
     citations = [] if no_match else sorted({_format_citation(c) for c in chunks})
 
