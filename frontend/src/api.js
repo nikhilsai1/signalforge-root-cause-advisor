@@ -3,7 +3,9 @@
 // real routes are /explain-alarm, /root-cause, /ask, /shift-handover,
 // /feedback, confirmed by reading routes/*.py and models/schemas.py directly.
 
-const BASE_URL = "http://localhost:8000";
+// Override per-machine with a .env.local file: VITE_API_URL=http://localhost:8001
+// (needed on machines where port 8000 is taken by something else, e.g. Docker).
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 async function postJSON(path, body) {
   const res = await fetch(`${BASE_URL}${path}`, {
