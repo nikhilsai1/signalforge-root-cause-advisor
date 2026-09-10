@@ -6,7 +6,11 @@ export default function ShiftHandoverPanel({ alarms, onClose }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    generateShiftHandover(alarms).then(setSummary).catch((err) => setError(err.message));
+    generateShiftHandover(alarms)
+      .then(setSummary)
+      .catch(() =>
+        setError("The AI assistant is temporarily unavailable. Please retry, or consult the SOP directly.")
+      );
   }, [alarms]);
 
   return (
@@ -17,7 +21,7 @@ export default function ShiftHandoverPanel({ alarms, onClose }) {
           <button className="handover-panel__close" onClick={onClose}>×</button>
         </div>
         <div className="handover-panel__body">
-          {error && <p className="handover-panel__note">Couldn't reach the backend: {error}</p>}
+          {error && <p className="handover-panel__note">{error}</p>}
           {!error && !summary && <p>Generating handover summary…</p>}
           {summary && <p>{summary}</p>}
         </div>

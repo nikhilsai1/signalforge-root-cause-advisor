@@ -16,8 +16,14 @@ export default function ChatPanel() {
       const rag = await askQuestion(text);
       const reply = rag.citations.length ? `${rag.answer} (${rag.citations.join(", ")})` : rag.answer;
       setLog((prev) => [...prev, { role: "copilot", text: reply }]);
-    } catch (err) {
-      setLog((prev) => [...prev, { role: "copilot", text: `Couldn't reach the backend: ${err.message}` }]);
+    } catch {
+      setLog((prev) => [
+        ...prev,
+        {
+          role: "copilot",
+          text: "The AI assistant is temporarily unavailable. Please retry, or consult the SOP directly.",
+        },
+      ]);
     } finally {
       setSending(false);
     }

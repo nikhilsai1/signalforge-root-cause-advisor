@@ -54,13 +54,20 @@ export async function submitFeedback(alarmTag, note) {
   return postJSON("/feedback", { alarm_tag: alarmTag, note });
 }
 
-// Adapts a RagAnswer ({answer, citations, no_match}) into the shape
-// GuidanceCard expects ({rootCause, fix, citation, cited}).
+// Adapts a RagAnswer ({answer, citations, no_match, error}) into the shape
+// GuidanceCard expects. `status` distinguishes the three real states so the
+// UI can render each cleanly instead of collapsing them into one "Error"
+// field: a genuine grounded answer, a clean "nothing matched" result (still
+// HTTP 200, the guardrail working as intended), or the AI backend being
+// degraded/unreachable (error="ollama_unavailable" from the server, or the
+// request never reaching it at all - see the catch handler in App.jsx).
 export function toGuidance(ragAnswer, rootCauseLabel) {
+  const status = ragAnswer.error ? "unavailable" : ragAnswer.no_match ? "no_match" : "ok";
   return {
     rootCause: rootCauseLabel,
     fix: ragAnswer.answer,
     citation: ragAnswer.citations.join(", "),
     cited: !ragAnswer.no_match && ragAnswer.citations.length > 0,
+    status,
   };
 }
