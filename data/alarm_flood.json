@@ -1,0 +1,407 @@
+[
+  {
+    "id": 1,
+    "timestamp": "2026-09-10T14:32:00",
+    "tag": "LINE1.MTR_01.OVERLOAD",
+    "equipment": "MTR_01",
+    "description": "Motor_1 overload trip",
+    "priority": "CRITICAL",
+    "is_root_cause": true
+  },
+  {
+    "id": 2,
+    "timestamp": "2026-09-10T14:32:00",
+    "tag": "LINE1.PUMP_03.COMM_LOSS",
+    "equipment": "PUMP_03",
+    "description": "PUMP_03 communication loss",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 3,
+    "timestamp": "2026-09-10T14:32:01",
+    "tag": "LINE1.SENS_03.SPEED_HIGH",
+    "equipment": "SENS_03",
+    "description": "SENS_03 speed above setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 4,
+    "timestamp": "2026-09-10T14:32:04",
+    "tag": "LINE1.PUMP_01.DUTY_CYCLE_HIGH",
+    "equipment": "PUMP_01",
+    "description": "PUMP_01 duty cycle high",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 5,
+    "timestamp": "2026-09-10T14:32:04",
+    "tag": "LINE1.VLV_03.JAM_DETECTED",
+    "equipment": "VLV_03",
+    "description": "VLV_03 jam detected",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 6,
+    "timestamp": "2026-09-10T14:32:05",
+    "tag": "LINE1.VFD_01.DUTY_CYCLE_HIGH",
+    "equipment": "VFD_01",
+    "description": "VFD_01 duty cycle high",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 7,
+    "timestamp": "2026-09-10T14:32:06",
+    "tag": "LINE1.TANK_02.LEVEL_LOW",
+    "equipment": "TANK_02",
+    "description": "TANK_02 level low",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 8,
+    "timestamp": "2026-09-10T14:32:07",
+    "tag": "LINE1.VLV_03.PRESSURE_HIGH",
+    "equipment": "VLV_03",
+    "description": "VLV_03 pressure high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 9,
+    "timestamp": "2026-09-10T14:32:07",
+    "tag": "LINE1.CNV_02.JAM_DETECTED",
+    "equipment": "CNV_02",
+    "description": "CNV_02 jam detected",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 10,
+    "timestamp": "2026-09-10T14:32:09",
+    "tag": "LINE1.CNV_01.DUTY_CYCLE_HIGH",
+    "equipment": "CNV_01",
+    "description": "CNV_01 duty cycle high",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 11,
+    "timestamp": "2026-09-10T14:32:10",
+    "tag": "LINE1.FAN_01.TEMP_HIGH",
+    "equipment": "FAN_01",
+    "description": "FAN_01 temperature high",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 12,
+    "timestamp": "2026-09-10T14:32:11",
+    "tag": "LINE1.HMI_01.POSITION_FAULT",
+    "equipment": "HMI_01",
+    "description": "HMI_01 position feedback fault",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 13,
+    "timestamp": "2026-09-10T14:32:11",
+    "tag": "LINE1.VLV_01.DUTY_CYCLE_HIGH",
+    "equipment": "VLV_01",
+    "description": "VLV_01 duty cycle high",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 14,
+    "timestamp": "2026-09-10T14:32:11",
+    "tag": "LINE1.VLV_03.SPEED_HIGH",
+    "equipment": "VLV_03",
+    "description": "VLV_03 speed above setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 15,
+    "timestamp": "2026-09-10T14:32:11",
+    "tag": "LINE1.SENS_02.VIBRATION_HIGH",
+    "equipment": "SENS_02",
+    "description": "SENS_02 vibration high",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 16,
+    "timestamp": "2026-09-10T14:32:13",
+    "tag": "LINE1.VFD_01.FLOW_LOW",
+    "equipment": "VFD_01",
+    "description": "VFD_01 flow below setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 17,
+    "timestamp": "2026-09-10T14:32:13",
+    "tag": "LINE1.VFD_01.BACKUP_DETECTED",
+    "equipment": "VFD_01",
+    "description": "VFD_01 material backup detected",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 18,
+    "timestamp": "2026-09-10T14:32:14",
+    "tag": "LINE1.PUMP_01.CURRENT_HIGH",
+    "equipment": "PUMP_01",
+    "description": "PUMP_01 current draw high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 19,
+    "timestamp": "2026-09-10T14:32:15",
+    "tag": "LINE1.VLV_03.JAM_DETECTED",
+    "equipment": "VLV_03",
+    "description": "VLV_03 jam detected",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 20,
+    "timestamp": "2026-09-10T14:32:20",
+    "tag": "LINE1.SENS_01.FLOW_HIGH",
+    "equipment": "SENS_01",
+    "description": "SENS_01 flow above setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 21,
+    "timestamp": "2026-09-10T14:32:23",
+    "tag": "LINE1.CNV_02.TEMP_HIGH",
+    "equipment": "CNV_02",
+    "description": "CNV_02 temperature high",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 22,
+    "timestamp": "2026-09-10T14:32:27",
+    "tag": "LINE1.TANK_02.FLOW_HIGH",
+    "equipment": "TANK_02",
+    "description": "TANK_02 flow above setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 23,
+    "timestamp": "2026-09-10T14:32:30",
+    "tag": "LINE1.PUMP_02.BACKUP_DETECTED",
+    "equipment": "PUMP_02",
+    "description": "PUMP_02 material backup detected",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 24,
+    "timestamp": "2026-09-10T14:32:31",
+    "tag": "LINE1.TANK_01.LEVEL_LOW",
+    "equipment": "TANK_01",
+    "description": "TANK_01 level low",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 25,
+    "timestamp": "2026-09-10T14:32:34",
+    "tag": "LINE1.CNV_03.FLOW_HIGH",
+    "equipment": "CNV_03",
+    "description": "CNV_03 flow above setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 26,
+    "timestamp": "2026-09-10T14:32:34",
+    "tag": "LINE1.TANK_02.DUTY_CYCLE_HIGH",
+    "equipment": "TANK_02",
+    "description": "TANK_02 duty cycle high",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 27,
+    "timestamp": "2026-09-10T14:32:36",
+    "tag": "LINE1.SENS_02.STOPPED",
+    "equipment": "SENS_02",
+    "description": "SENS_02 unexpected stop",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 28,
+    "timestamp": "2026-09-10T14:32:38",
+    "tag": "LINE1.HEATER_01.VIBRATION_HIGH",
+    "equipment": "HEATER_01",
+    "description": "HEATER_01 vibration high",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 29,
+    "timestamp": "2026-09-10T14:32:40",
+    "tag": "LINE1.PUMP_03.POSITION_FAULT",
+    "equipment": "PUMP_03",
+    "description": "PUMP_03 position feedback fault",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 30,
+    "timestamp": "2026-09-10T14:32:40",
+    "tag": "LINE1.SENS_02.CURRENT_HIGH",
+    "equipment": "SENS_02",
+    "description": "SENS_02 current draw high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 31,
+    "timestamp": "2026-09-10T14:32:48",
+    "tag": "LINE1.CNV_03.SPEED_HIGH",
+    "equipment": "CNV_03",
+    "description": "CNV_03 speed above setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 32,
+    "timestamp": "2026-09-10T14:32:51",
+    "tag": "LINE1.HMI_01.SPEED_LOW",
+    "equipment": "HMI_01",
+    "description": "HMI_01 speed below setpoint",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 33,
+    "timestamp": "2026-09-10T14:32:53",
+    "tag": "LINE1.CNV_01.FLOW_HIGH",
+    "equipment": "CNV_01",
+    "description": "CNV_01 flow above setpoint",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 34,
+    "timestamp": "2026-09-10T14:32:54",
+    "tag": "LINE1.TANK_01.PRESSURE_HIGH",
+    "equipment": "TANK_01",
+    "description": "TANK_01 pressure high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 35,
+    "timestamp": "2026-09-10T14:33:00",
+    "tag": "LINE1.PUMP_01.SPEED_LOW",
+    "equipment": "PUMP_01",
+    "description": "PUMP_01 speed below setpoint",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 36,
+    "timestamp": "2026-09-10T14:33:02",
+    "tag": "LINE1.PUMP_01.DUTY_CYCLE_HIGH",
+    "equipment": "PUMP_01",
+    "description": "PUMP_01 duty cycle high",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 37,
+    "timestamp": "2026-09-10T14:33:04",
+    "tag": "LINE1.VLV_01.BACKUP_DETECTED",
+    "equipment": "VLV_01",
+    "description": "VLV_01 material backup detected",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 38,
+    "timestamp": "2026-09-10T14:33:14",
+    "tag": "LINE1.FAN_01.PRESSURE_HIGH",
+    "equipment": "FAN_01",
+    "description": "FAN_01 pressure high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 39,
+    "timestamp": "2026-09-10T14:33:14",
+    "tag": "LINE1.HEATER_01.PRESSURE_HIGH",
+    "equipment": "HEATER_01",
+    "description": "HEATER_01 pressure high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 40,
+    "timestamp": "2026-09-10T14:33:24",
+    "tag": "LINE1.PUMP_01.VIBRATION_HIGH",
+    "equipment": "PUMP_01",
+    "description": "PUMP_01 vibration high",
+    "priority": "MEDIUM",
+    "is_root_cause": false
+  },
+  {
+    "id": 41,
+    "timestamp": "2026-09-10T14:33:26",
+    "tag": "LINE1.VLV_02.STOPPED",
+    "equipment": "VLV_02",
+    "description": "VLV_02 unexpected stop",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 42,
+    "timestamp": "2026-09-10T14:33:31",
+    "tag": "LINE1.PLC_01.JAM_DETECTED",
+    "equipment": "PLC_01",
+    "description": "PLC_01 jam detected",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 43,
+    "timestamp": "2026-09-10T14:33:37",
+    "tag": "LINE1.VFD_02.CURRENT_HIGH",
+    "equipment": "VFD_02",
+    "description": "VFD_02 current draw high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  },
+  {
+    "id": 44,
+    "timestamp": "2026-09-10T14:33:42",
+    "tag": "LINE1.FAN_01.POSITION_FAULT",
+    "equipment": "FAN_01",
+    "description": "FAN_01 position feedback fault",
+    "priority": "LOW",
+    "is_root_cause": false
+  },
+  {
+    "id": 45,
+    "timestamp": "2026-09-10T14:33:49",
+    "tag": "LINE1.CNV_03.LEVEL_HIGH",
+    "equipment": "CNV_03",
+    "description": "CNV_03 level high",
+    "priority": "HIGH",
+    "is_root_cause": false
+  }
+]
