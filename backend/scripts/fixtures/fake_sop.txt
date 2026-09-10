@@ -1,0 +1,22 @@
+# 1
+Purpose and scope. This procedure covers the operator response to Motor_1 trip
+alarms on the primary conveyor drive. It applies to all shifts.
+
+# 2
+Initial operator response. Upon receiving any Motor_1 alarm, acknowledge the
+alarm on the HMI and open the Motor_1 trend screen before taking any action.
+
+# 3
+Overload response. If the Motor_1 trip alarm is accompanied by an overload
+condition, first check the VFD (Variable Frequency Drive) load percentage on
+the HMI trend screen. If VFD load exceeded 100% for more than 30 seconds prior
+to the trip, this confirms an overload condition. Do not attempt to reset the
+motor immediately. Instead, inspect the conveyor for mechanical jam or
+excessive material buildup, clear any obstruction, and allow the VFD load to
+return to a normal baseline before resetting Motor_1 from the HMI.
+
+# 4
+Escalation. If the overload recurs within 15 minutes of reset, or if no
+mechanical obstruction is found, escalate to the shift maintenance lead and
+do not attempt a second reset without their approval. Log the event in the
+shift handover notes.
