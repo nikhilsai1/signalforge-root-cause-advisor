@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import AlarmList from "./components/AlarmList";
 import GuidanceCard from "./components/GuidanceCard";
 import ChatPanel from "./components/ChatPanel";
 import ShiftHandoverPanel from "./components/ShiftHandoverPanel";
+import RawAlarmFeed from "./components/RawAlarmFeed";
 import { fetchRootCause, explainAlarm, toGuidance } from "./api";
 import rawAlarmFlood from "./data/alarmFlood.json";
 import "./App.css";
@@ -28,6 +29,12 @@ export default function App() {
   const [guidanceLoading, setGuidanceLoading] = useState(false);
 
   const [handoverOpen, setHandoverOpen] = useState(false);
+  const [showRawFeed, setShowRawFeed] = useState(true);
+
+  // The raw feed doesn't touch the backend at all — that's the point, it's
+  // the "before" legacy system with no AI wired in. Rendered straight from
+  // the flood file so it's on screen instantly with no loading state.
+  const rawAdapted = useMemo(() => rawAlarmFlood.map(adaptAlarm), []);
 
   // Load the synthetic flood once, then hand it to the backend's ISA-18.2
   // detector so the root-cause marker comes from real analysis, not just
@@ -62,6 +69,10 @@ export default function App() {
       .finally(() => setGuidanceLoading(false));
   }, [selectedId, alarms]);
 
+  if (showRawFeed) {
+    return <RawAlarmFeed alarms={rawAdapted} onLaunch={() => setShowRawFeed(false)} />;
+  }
+
   return (
     <div className="hmi-shell">
       <header className="hmi-shell__topbar">
@@ -70,6 +81,9 @@ export default function App() {
           Line 1 · Runtime Copilot
           {alarmsError && <span className="hmi-shell__error"> · backend unreachable</span>}
         </div>
+        <button className="hmi-shell__raw-feed-link" onClick={() => setShowRawFeed(true)}>
+          ← Raw feed
+        </button>
         <button className="handover-button" onClick={() => setHandoverOpen(true)}>
           Generate Shift Handover
         </button>

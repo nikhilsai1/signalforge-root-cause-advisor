@@ -21,14 +21,16 @@ export default function GuidanceCard({ guidance }) {
         <div className="guidance-field__value">{guidance.fix}</div>
       </div>
 
-      <div className="guidance-card__footer">
-        <span className="guidance-card__citation">{guidance.citation}</span>
-        {guidance.cited && (
-          <span className="guidance-card__cited">
-            <span className="guidance-card__check">✓</span> Cited, not guessed
-          </span>
-        )}
-      </div>
+      {(guidance.citation || guidance.cited) && (
+        <div className="guidance-card__footer">
+          <span className="guidance-card__citation">{guidance.citation}</span>
+          {guidance.cited && (
+            <span className="guidance-card__cited">
+              <span className="guidance-card__check">✓</span> Cited, not guessed
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 }
