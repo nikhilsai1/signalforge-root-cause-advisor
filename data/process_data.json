@@ -1,0 +1,1037 @@
+[
+  {
+    "timestamp": "2026-09-10T14:30:00",
+    "equipment": "MTR_01",
+    "t_seconds": 0,
+    "temperature": 61.85,
+    "pressure": 4.14,
+    "motor_load_pct": 54.66
+  },
+  {
+    "timestamp": "2026-09-10T14:30:05",
+    "equipment": "MTR_01",
+    "t_seconds": 5,
+    "temperature": 61.82,
+    "pressure": 4.03,
+    "motor_load_pct": 54.69
+  },
+  {
+    "timestamp": "2026-09-10T14:30:10",
+    "equipment": "MTR_01",
+    "t_seconds": 10,
+    "temperature": 62.69,
+    "pressure": 4.14,
+    "motor_load_pct": 56.57
+  },
+  {
+    "timestamp": "2026-09-10T14:30:15",
+    "equipment": "MTR_01",
+    "t_seconds": 15,
+    "temperature": 62.18,
+    "pressure": 4.13,
+    "motor_load_pct": 55.31
+  },
+  {
+    "timestamp": "2026-09-10T14:30:20",
+    "equipment": "MTR_01",
+    "t_seconds": 20,
+    "temperature": 61.04,
+    "pressure": 4.17,
+    "motor_load_pct": 55.8
+  },
+  {
+    "timestamp": "2026-09-10T14:30:25",
+    "equipment": "MTR_01",
+    "t_seconds": 25,
+    "temperature": 62.35,
+    "pressure": 3.97,
+    "motor_load_pct": 52.43
+  },
+  {
+    "timestamp": "2026-09-10T14:30:30",
+    "equipment": "MTR_01",
+    "t_seconds": 30,
+    "temperature": 61.53,
+    "pressure": 4.07,
+    "motor_load_pct": 55.51
+  },
+  {
+    "timestamp": "2026-09-10T14:30:35",
+    "equipment": "MTR_01",
+    "t_seconds": 35,
+    "temperature": 62.04,
+    "pressure": 4.15,
+    "motor_load_pct": 54.1
+  },
+  {
+    "timestamp": "2026-09-10T14:30:40",
+    "equipment": "MTR_01",
+    "t_seconds": 40,
+    "temperature": 62.27,
+    "pressure": 4.14,
+    "motor_load_pct": 54.08
+  },
+  {
+    "timestamp": "2026-09-10T14:30:45",
+    "equipment": "MTR_01",
+    "t_seconds": 45,
+    "temperature": 63.12,
+    "pressure": 4.15,
+    "motor_load_pct": 56.88
+  },
+  {
+    "timestamp": "2026-09-10T14:30:50",
+    "equipment": "MTR_01",
+    "t_seconds": 50,
+    "temperature": 61.73,
+    "pressure": 4.05,
+    "motor_load_pct": 54.58
+  },
+  {
+    "timestamp": "2026-09-10T14:30:55",
+    "equipment": "MTR_01",
+    "t_seconds": 55,
+    "temperature": 62.05,
+    "pressure": 4.16,
+    "motor_load_pct": 55.47
+  },
+  {
+    "timestamp": "2026-09-10T14:31:00",
+    "equipment": "MTR_01",
+    "t_seconds": 60,
+    "temperature": 61.86,
+    "pressure": 4.03,
+    "motor_load_pct": 54.33
+  },
+  {
+    "timestamp": "2026-09-10T14:31:05",
+    "equipment": "MTR_01",
+    "t_seconds": 65,
+    "temperature": 62.87,
+    "pressure": 4.04,
+    "motor_load_pct": 55.49
+  },
+  {
+    "timestamp": "2026-09-10T14:31:10",
+    "equipment": "MTR_01",
+    "t_seconds": 70,
+    "temperature": 62.4,
+    "pressure": 3.99,
+    "motor_load_pct": 55.2
+  },
+  {
+    "timestamp": "2026-09-10T14:31:15",
+    "equipment": "MTR_01",
+    "t_seconds": 75,
+    "temperature": 62.94,
+    "pressure": 3.95,
+    "motor_load_pct": 54.65
+  },
+  {
+    "timestamp": "2026-09-10T14:31:20",
+    "equipment": "MTR_01",
+    "t_seconds": 80,
+    "temperature": 62.1,
+    "pressure": 4.05,
+    "motor_load_pct": 55.89
+  },
+  {
+    "timestamp": "2026-09-10T14:31:25",
+    "equipment": "MTR_01",
+    "t_seconds": 85,
+    "temperature": 62.14,
+    "pressure": 3.99,
+    "motor_load_pct": 56.4
+  },
+  {
+    "timestamp": "2026-09-10T14:31:30",
+    "equipment": "MTR_01",
+    "t_seconds": 90,
+    "temperature": 62.59,
+    "pressure": 4.19,
+    "motor_load_pct": 57.33,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:31:35",
+    "equipment": "MTR_01",
+    "t_seconds": 95,
+    "temperature": 62.41,
+    "pressure": 4.12,
+    "motor_load_pct": 61.97,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:31:40",
+    "equipment": "MTR_01",
+    "t_seconds": 100,
+    "temperature": 62.57,
+    "pressure": 4.06,
+    "motor_load_pct": 72.0,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:31:45",
+    "equipment": "MTR_01",
+    "t_seconds": 105,
+    "temperature": 61.46,
+    "pressure": 4.04,
+    "motor_load_pct": 80.64,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:31:50",
+    "equipment": "MTR_01",
+    "t_seconds": 110,
+    "temperature": 63.0,
+    "pressure": 3.95,
+    "motor_load_pct": 85.45,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:31:55",
+    "equipment": "MTR_01",
+    "t_seconds": 115,
+    "temperature": 62.38,
+    "pressure": 4.23,
+    "motor_load_pct": 88.03,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:00",
+    "equipment": "MTR_01",
+    "t_seconds": 120,
+    "temperature": 61.11,
+    "pressure": 3.91,
+    "motor_load_pct": 89.09,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:05",
+    "equipment": "MTR_01",
+    "t_seconds": 125,
+    "temperature": 61.81,
+    "pressure": 4.03,
+    "motor_load_pct": 89.02,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:10",
+    "equipment": "MTR_01",
+    "t_seconds": 130,
+    "temperature": 62.93,
+    "pressure": 4.13,
+    "motor_load_pct": 87.49,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:15",
+    "equipment": "MTR_01",
+    "t_seconds": 135,
+    "temperature": 62.54,
+    "pressure": 4.25,
+    "motor_load_pct": 88.24,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:20",
+    "equipment": "MTR_01",
+    "t_seconds": 140,
+    "temperature": 62.6,
+    "pressure": 4.16,
+    "motor_load_pct": 84.58,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:25",
+    "equipment": "MTR_01",
+    "t_seconds": 145,
+    "temperature": 63.07,
+    "pressure": 4.2,
+    "motor_load_pct": 88.27,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:30",
+    "equipment": "MTR_01",
+    "t_seconds": 150,
+    "temperature": 61.12,
+    "pressure": 4.07,
+    "motor_load_pct": 89.13,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:35",
+    "equipment": "MTR_01",
+    "t_seconds": 155,
+    "temperature": 61.23,
+    "pressure": 4.11,
+    "motor_load_pct": 89.38,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:40",
+    "equipment": "MTR_01",
+    "t_seconds": 160,
+    "temperature": 61.54,
+    "pressure": 4.25,
+    "motor_load_pct": 90.28,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:45",
+    "equipment": "MTR_01",
+    "t_seconds": 165,
+    "temperature": 62.25,
+    "pressure": 4.15,
+    "motor_load_pct": 88.78,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:50",
+    "equipment": "MTR_01",
+    "t_seconds": 170,
+    "temperature": 62.42,
+    "pressure": 4.21,
+    "motor_load_pct": 89.32,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:32:55",
+    "equipment": "MTR_01",
+    "t_seconds": 175,
+    "temperature": 62.11,
+    "pressure": 4.21,
+    "motor_load_pct": 85.98,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:00",
+    "equipment": "MTR_01",
+    "t_seconds": 180,
+    "temperature": 61.84,
+    "pressure": 4.2,
+    "motor_load_pct": 83.77,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:05",
+    "equipment": "MTR_01",
+    "t_seconds": 185,
+    "temperature": 62.11,
+    "pressure": 4.01,
+    "motor_load_pct": 77.0,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:10",
+    "equipment": "MTR_01",
+    "t_seconds": 190,
+    "temperature": 62.3,
+    "pressure": 4.1,
+    "motor_load_pct": 74.95,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:15",
+    "equipment": "MTR_01",
+    "t_seconds": 195,
+    "temperature": 61.78,
+    "pressure": 4.23,
+    "motor_load_pct": 66.58,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:20",
+    "equipment": "MTR_01",
+    "t_seconds": 200,
+    "temperature": 61.93,
+    "pressure": 4.18,
+    "motor_load_pct": 65.8,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:25",
+    "equipment": "MTR_01",
+    "t_seconds": 205,
+    "temperature": 62.93,
+    "pressure": 4.16,
+    "motor_load_pct": 59.95,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:30",
+    "equipment": "MTR_01",
+    "t_seconds": 210,
+    "temperature": 62.52,
+    "pressure": 4.17,
+    "motor_load_pct": 55.11,
+    "anomaly_tags": [
+      "motor_load_pct"
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T14:33:35",
+    "equipment": "MTR_01",
+    "t_seconds": 215,
+    "temperature": 62.6,
+    "pressure": 4.17,
+    "motor_load_pct": 55.39
+  },
+  {
+    "timestamp": "2026-09-10T14:33:40",
+    "equipment": "MTR_01",
+    "t_seconds": 220,
+    "temperature": 62.9,
+    "pressure": 4.17,
+    "motor_load_pct": 58.41
+  },
+  {
+    "timestamp": "2026-09-10T14:33:45",
+    "equipment": "MTR_01",
+    "t_seconds": 225,
+    "temperature": 62.65,
+    "pressure": 4.1,
+    "motor_load_pct": 54.84
+  },
+  {
+    "timestamp": "2026-09-10T14:33:50",
+    "equipment": "MTR_01",
+    "t_seconds": 230,
+    "temperature": 62.46,
+    "pressure": 4.2,
+    "motor_load_pct": 54.91
+  },
+  {
+    "timestamp": "2026-09-10T14:33:55",
+    "equipment": "MTR_01",
+    "t_seconds": 235,
+    "temperature": 62.7,
+    "pressure": 4.28,
+    "motor_load_pct": 51.57
+  },
+  {
+    "timestamp": "2026-09-10T14:34:00",
+    "equipment": "MTR_01",
+    "t_seconds": 240,
+    "temperature": 61.81,
+    "pressure": 4.15,
+    "motor_load_pct": 56.03
+  },
+  {
+    "timestamp": "2026-09-10T14:34:05",
+    "equipment": "MTR_01",
+    "t_seconds": 245,
+    "temperature": 62.64,
+    "pressure": 4.1,
+    "motor_load_pct": 56.42
+  },
+  {
+    "timestamp": "2026-09-10T14:34:10",
+    "equipment": "MTR_01",
+    "t_seconds": 250,
+    "temperature": 62.67,
+    "pressure": 4.09,
+    "motor_load_pct": 59.09
+  },
+  {
+    "timestamp": "2026-09-10T14:34:15",
+    "equipment": "MTR_01",
+    "t_seconds": 255,
+    "temperature": 62.72,
+    "pressure": 4.09,
+    "motor_load_pct": 55.3
+  },
+  {
+    "timestamp": "2026-09-10T14:34:20",
+    "equipment": "MTR_01",
+    "t_seconds": 260,
+    "temperature": 62.39,
+    "pressure": 4.13,
+    "motor_load_pct": 51.37
+  },
+  {
+    "timestamp": "2026-09-10T14:34:25",
+    "equipment": "MTR_01",
+    "t_seconds": 265,
+    "temperature": 62.24,
+    "pressure": 4.22,
+    "motor_load_pct": 53.72
+  },
+  {
+    "timestamp": "2026-09-10T14:34:30",
+    "equipment": "MTR_01",
+    "t_seconds": 270,
+    "temperature": 62.5,
+    "pressure": 4.21,
+    "motor_load_pct": 56.76
+  },
+  {
+    "timestamp": "2026-09-10T14:34:35",
+    "equipment": "MTR_01",
+    "t_seconds": 275,
+    "temperature": 63.44,
+    "pressure": 4.0,
+    "motor_load_pct": 54.96
+  },
+  {
+    "timestamp": "2026-09-10T14:34:40",
+    "equipment": "MTR_01",
+    "t_seconds": 280,
+    "temperature": 62.35,
+    "pressure": 4.19,
+    "motor_load_pct": 57.13
+  },
+  {
+    "timestamp": "2026-09-10T14:34:45",
+    "equipment": "MTR_01",
+    "t_seconds": 285,
+    "temperature": 60.96,
+    "pressure": 4.22,
+    "motor_load_pct": 53.33
+  },
+  {
+    "timestamp": "2026-09-10T14:34:50",
+    "equipment": "MTR_01",
+    "t_seconds": 290,
+    "temperature": 62.99,
+    "pressure": 4.02,
+    "motor_load_pct": 55.77
+  },
+  {
+    "timestamp": "2026-09-10T14:34:55",
+    "equipment": "MTR_01",
+    "t_seconds": 295,
+    "temperature": 63.3,
+    "pressure": 4.13,
+    "motor_load_pct": 55.81
+  },
+  {
+    "timestamp": "2026-09-10T14:35:00",
+    "equipment": "MTR_01",
+    "t_seconds": 300,
+    "temperature": 63.07,
+    "pressure": 4.15,
+    "motor_load_pct": 55.39
+  },
+  {
+    "timestamp": "2026-09-10T14:35:05",
+    "equipment": "MTR_01",
+    "t_seconds": 305,
+    "temperature": 63.52,
+    "pressure": 4.22,
+    "motor_load_pct": 55.09
+  },
+  {
+    "timestamp": "2026-09-10T14:35:10",
+    "equipment": "MTR_01",
+    "t_seconds": 310,
+    "temperature": 64.26,
+    "pressure": 4.05,
+    "motor_load_pct": 56.92
+  },
+  {
+    "timestamp": "2026-09-10T14:35:15",
+    "equipment": "MTR_01",
+    "t_seconds": 315,
+    "temperature": 62.46,
+    "pressure": 4.15,
+    "motor_load_pct": 56.61
+  },
+  {
+    "timestamp": "2026-09-10T14:35:20",
+    "equipment": "MTR_01",
+    "t_seconds": 320,
+    "temperature": 62.76,
+    "pressure": 4.19,
+    "motor_load_pct": 53.27
+  },
+  {
+    "timestamp": "2026-09-10T14:35:25",
+    "equipment": "MTR_01",
+    "t_seconds": 325,
+    "temperature": 61.73,
+    "pressure": 4.19,
+    "motor_load_pct": 54.12
+  },
+  {
+    "timestamp": "2026-09-10T14:35:30",
+    "equipment": "MTR_01",
+    "t_seconds": 330,
+    "temperature": 62.03,
+    "pressure": 4.03,
+    "motor_load_pct": 57.47
+  },
+  {
+    "timestamp": "2026-09-10T14:35:35",
+    "equipment": "MTR_01",
+    "t_seconds": 335,
+    "temperature": 63.1,
+    "pressure": 4.26,
+    "motor_load_pct": 54.18
+  },
+  {
+    "timestamp": "2026-09-10T14:35:40",
+    "equipment": "MTR_01",
+    "t_seconds": 340,
+    "temperature": 62.67,
+    "pressure": 4.05,
+    "motor_load_pct": 56.74
+  },
+  {
+    "timestamp": "2026-09-10T14:35:45",
+    "equipment": "MTR_01",
+    "t_seconds": 345,
+    "temperature": 63.63,
+    "pressure": 4.07,
+    "motor_load_pct": 57.94
+  },
+  {
+    "timestamp": "2026-09-10T14:35:50",
+    "equipment": "MTR_01",
+    "t_seconds": 350,
+    "temperature": 63.28,
+    "pressure": 4.13,
+    "motor_load_pct": 52.65
+  },
+  {
+    "timestamp": "2026-09-10T14:35:55",
+    "equipment": "MTR_01",
+    "t_seconds": 355,
+    "temperature": 63.54,
+    "pressure": 4.14,
+    "motor_load_pct": 54.71
+  },
+  {
+    "timestamp": "2026-09-10T14:36:00",
+    "equipment": "MTR_01",
+    "t_seconds": 360,
+    "temperature": 62.94,
+    "pressure": 4.18,
+    "motor_load_pct": 57.87
+  },
+  {
+    "timestamp": "2026-09-10T14:36:05",
+    "equipment": "MTR_01",
+    "t_seconds": 365,
+    "temperature": 62.1,
+    "pressure": 4.24,
+    "motor_load_pct": 57.86
+  },
+  {
+    "timestamp": "2026-09-10T14:36:10",
+    "equipment": "MTR_01",
+    "t_seconds": 370,
+    "temperature": 63.59,
+    "pressure": 4.13,
+    "motor_load_pct": 54.52
+  },
+  {
+    "timestamp": "2026-09-10T14:36:15",
+    "equipment": "MTR_01",
+    "t_seconds": 375,
+    "temperature": 63.34,
+    "pressure": 4.16,
+    "motor_load_pct": 55.83
+  },
+  {
+    "timestamp": "2026-09-10T14:36:20",
+    "equipment": "MTR_01",
+    "t_seconds": 380,
+    "temperature": 63.59,
+    "pressure": 4.13,
+    "motor_load_pct": 52.21
+  },
+  {
+    "timestamp": "2026-09-10T14:36:25",
+    "equipment": "MTR_01",
+    "t_seconds": 385,
+    "temperature": 62.51,
+    "pressure": 4.0,
+    "motor_load_pct": 56.89
+  },
+  {
+    "timestamp": "2026-09-10T14:36:30",
+    "equipment": "MTR_01",
+    "t_seconds": 390,
+    "temperature": 62.94,
+    "pressure": 4.1,
+    "motor_load_pct": 55.65
+  },
+  {
+    "timestamp": "2026-09-10T14:36:35",
+    "equipment": "MTR_01",
+    "t_seconds": 395,
+    "temperature": 63.26,
+    "pressure": 4.16,
+    "motor_load_pct": 57.66
+  },
+  {
+    "timestamp": "2026-09-10T14:36:40",
+    "equipment": "MTR_01",
+    "t_seconds": 400,
+    "temperature": 62.73,
+    "pressure": 4.23,
+    "motor_load_pct": 57.92
+  },
+  {
+    "timestamp": "2026-09-10T14:36:45",
+    "equipment": "MTR_01",
+    "t_seconds": 405,
+    "temperature": 63.74,
+    "pressure": 4.1,
+    "motor_load_pct": 57.01
+  },
+  {
+    "timestamp": "2026-09-10T14:36:50",
+    "equipment": "MTR_01",
+    "t_seconds": 410,
+    "temperature": 61.66,
+    "pressure": 4.07,
+    "motor_load_pct": 52.75
+  },
+  {
+    "timestamp": "2026-09-10T14:36:55",
+    "equipment": "MTR_01",
+    "t_seconds": 415,
+    "temperature": 63.43,
+    "pressure": 4.05,
+    "motor_load_pct": 55.68
+  },
+  {
+    "timestamp": "2026-09-10T14:37:00",
+    "equipment": "MTR_01",
+    "t_seconds": 420,
+    "temperature": 62.68,
+    "pressure": 4.15,
+    "motor_load_pct": 54.82
+  },
+  {
+    "timestamp": "2026-09-10T14:37:05",
+    "equipment": "MTR_01",
+    "t_seconds": 425,
+    "temperature": 62.95,
+    "pressure": 4.3,
+    "motor_load_pct": 55.78
+  },
+  {
+    "timestamp": "2026-09-10T14:37:10",
+    "equipment": "MTR_01",
+    "t_seconds": 430,
+    "temperature": 63.13,
+    "pressure": 4.23,
+    "motor_load_pct": 55.43
+  },
+  {
+    "timestamp": "2026-09-10T14:37:15",
+    "equipment": "MTR_01",
+    "t_seconds": 435,
+    "temperature": 62.07,
+    "pressure": 4.11,
+    "motor_load_pct": 57.34
+  },
+  {
+    "timestamp": "2026-09-10T14:37:20",
+    "equipment": "MTR_01",
+    "t_seconds": 440,
+    "temperature": 61.84,
+    "pressure": 4.11,
+    "motor_load_pct": 57.25
+  },
+  {
+    "timestamp": "2026-09-10T14:37:25",
+    "equipment": "MTR_01",
+    "t_seconds": 445,
+    "temperature": 63.31,
+    "pressure": 4.16,
+    "motor_load_pct": 56.95
+  },
+  {
+    "timestamp": "2026-09-10T14:37:30",
+    "equipment": "MTR_01",
+    "t_seconds": 450,
+    "temperature": 62.94,
+    "pressure": 4.06,
+    "motor_load_pct": 53.4
+  },
+  {
+    "timestamp": "2026-09-10T14:37:35",
+    "equipment": "MTR_01",
+    "t_seconds": 455,
+    "temperature": 62.47,
+    "pressure": 4.23,
+    "motor_load_pct": 54.91
+  },
+  {
+    "timestamp": "2026-09-10T14:37:40",
+    "equipment": "MTR_01",
+    "t_seconds": 460,
+    "temperature": 62.32,
+    "pressure": 4.1,
+    "motor_load_pct": 53.47
+  },
+  {
+    "timestamp": "2026-09-10T14:37:45",
+    "equipment": "MTR_01",
+    "t_seconds": 465,
+    "temperature": 62.8,
+    "pressure": 4.06,
+    "motor_load_pct": 56.32
+  },
+  {
+    "timestamp": "2026-09-10T14:37:50",
+    "equipment": "MTR_01",
+    "t_seconds": 470,
+    "temperature": 61.46,
+    "pressure": 4.18,
+    "motor_load_pct": 54.81
+  },
+  {
+    "timestamp": "2026-09-10T14:37:55",
+    "equipment": "MTR_01",
+    "t_seconds": 475,
+    "temperature": 61.72,
+    "pressure": 4.22,
+    "motor_load_pct": 55.37
+  },
+  {
+    "timestamp": "2026-09-10T14:38:00",
+    "equipment": "MTR_01",
+    "t_seconds": 480,
+    "temperature": 61.55,
+    "pressure": 4.09,
+    "motor_load_pct": 56.23
+  },
+  {
+    "timestamp": "2026-09-10T14:38:05",
+    "equipment": "MTR_01",
+    "t_seconds": 485,
+    "temperature": 62.62,
+    "pressure": 4.22,
+    "motor_load_pct": 56.92
+  },
+  {
+    "timestamp": "2026-09-10T14:38:10",
+    "equipment": "MTR_01",
+    "t_seconds": 490,
+    "temperature": 63.3,
+    "pressure": 4.19,
+    "motor_load_pct": 57.8
+  },
+  {
+    "timestamp": "2026-09-10T14:38:15",
+    "equipment": "MTR_01",
+    "t_seconds": 495,
+    "temperature": 63.31,
+    "pressure": 4.2,
+    "motor_load_pct": 52.68
+  },
+  {
+    "timestamp": "2026-09-10T14:38:20",
+    "equipment": "MTR_01",
+    "t_seconds": 500,
+    "temperature": 63.46,
+    "pressure": 4.27,
+    "motor_load_pct": 55.37
+  },
+  {
+    "timestamp": "2026-09-10T14:38:25",
+    "equipment": "MTR_01",
+    "t_seconds": 505,
+    "temperature": 62.64,
+    "pressure": 4.32,
+    "motor_load_pct": 53.18
+  },
+  {
+    "timestamp": "2026-09-10T14:38:30",
+    "equipment": "MTR_01",
+    "t_seconds": 510,
+    "temperature": 63.21,
+    "pressure": 4.36,
+    "motor_load_pct": 54.44
+  },
+  {
+    "timestamp": "2026-09-10T14:38:35",
+    "equipment": "MTR_01",
+    "t_seconds": 515,
+    "temperature": 63.35,
+    "pressure": 4.31,
+    "motor_load_pct": 55.65
+  },
+  {
+    "timestamp": "2026-09-10T14:38:40",
+    "equipment": "MTR_01",
+    "t_seconds": 520,
+    "temperature": 63.28,
+    "pressure": 4.23,
+    "motor_load_pct": 54.48
+  },
+  {
+    "timestamp": "2026-09-10T14:38:45",
+    "equipment": "MTR_01",
+    "t_seconds": 525,
+    "temperature": 62.9,
+    "pressure": 4.19,
+    "motor_load_pct": 57.08
+  },
+  {
+    "timestamp": "2026-09-10T14:38:50",
+    "equipment": "MTR_01",
+    "t_seconds": 530,
+    "temperature": 62.94,
+    "pressure": 4.15,
+    "motor_load_pct": 54.33
+  },
+  {
+    "timestamp": "2026-09-10T14:38:55",
+    "equipment": "MTR_01",
+    "t_seconds": 535,
+    "temperature": 62.75,
+    "pressure": 4.24,
+    "motor_load_pct": 56.01
+  },
+  {
+    "timestamp": "2026-09-10T14:39:00",
+    "equipment": "MTR_01",
+    "t_seconds": 540,
+    "temperature": 62.46,
+    "pressure": 4.1,
+    "motor_load_pct": 59.86
+  },
+  {
+    "timestamp": "2026-09-10T14:39:05",
+    "equipment": "MTR_01",
+    "t_seconds": 545,
+    "temperature": 63.66,
+    "pressure": 4.22,
+    "motor_load_pct": 51.98
+  },
+  {
+    "timestamp": "2026-09-10T14:39:10",
+    "equipment": "MTR_01",
+    "t_seconds": 550,
+    "temperature": 63.36,
+    "pressure": 4.2,
+    "motor_load_pct": 58.4
+  },
+  {
+    "timestamp": "2026-09-10T14:39:15",
+    "equipment": "MTR_01",
+    "t_seconds": 555,
+    "temperature": 63.25,
+    "pressure": 4.16,
+    "motor_load_pct": 56.66
+  },
+  {
+    "timestamp": "2026-09-10T14:39:20",
+    "equipment": "MTR_01",
+    "t_seconds": 560,
+    "temperature": 61.83,
+    "pressure": 4.25,
+    "motor_load_pct": 56.37
+  },
+  {
+    "timestamp": "2026-09-10T14:39:25",
+    "equipment": "MTR_01",
+    "t_seconds": 565,
+    "temperature": 62.58,
+    "pressure": 4.27,
+    "motor_load_pct": 58.6
+  },
+  {
+    "timestamp": "2026-09-10T14:39:30",
+    "equipment": "MTR_01",
+    "t_seconds": 570,
+    "temperature": 62.17,
+    "pressure": 4.11,
+    "motor_load_pct": 56.33
+  },
+  {
+    "timestamp": "2026-09-10T14:39:35",
+    "equipment": "MTR_01",
+    "t_seconds": 575,
+    "temperature": 63.12,
+    "pressure": 4.14,
+    "motor_load_pct": 54.44
+  },
+  {
+    "timestamp": "2026-09-10T14:39:40",
+    "equipment": "MTR_01",
+    "t_seconds": 580,
+    "temperature": 64.29,
+    "pressure": 4.25,
+    "motor_load_pct": 54.11
+  },
+  {
+    "timestamp": "2026-09-10T14:39:45",
+    "equipment": "MTR_01",
+    "t_seconds": 585,
+    "temperature": 62.22,
+    "pressure": 4.3,
+    "motor_load_pct": 57.39
+  },
+  {
+    "timestamp": "2026-09-10T14:39:50",
+    "equipment": "MTR_01",
+    "t_seconds": 590,
+    "temperature": 64.12,
+    "pressure": 4.23,
+    "motor_load_pct": 54.61
+  },
+  {
+    "timestamp": "2026-09-10T14:39:55",
+    "equipment": "MTR_01",
+    "t_seconds": 595,
+    "temperature": 63.19,
+    "pressure": 4.0,
+    "motor_load_pct": 54.8
+  }
+]
