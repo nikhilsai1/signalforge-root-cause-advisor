@@ -86,3 +86,34 @@ def flatten_process_readings(
                 }
             )
     return flat
+
+
+# Maps live Modbus telemetry field names (as written by
+# integration/telemetry_bridge.py to data/live_telemetry.json) onto the same
+# tag convention flatten_process_readings() uses, so a detector trained on
+# Mahesh's synthetic baseline can score live Modbus readings directly.
+# Only continuous sensor fields are mapped - Motor_1_RunStatus,
+# Active_Alarm_Code and Root_Cause_Candidate are status/flag fields, not
+# anomaly-scoreable continuous values, so they're intentionally left out.
+LIVE_TELEMETRY_FIELD_MAP = {
+    "Motor_1_Load_Pct": "MTR_01.motor_load_pct",
+    "Bearing_Temp_C": "MTR_01.temperature",
+    "Tank_Level_Pct": "MTR_01.tank_level_pct",
+}
+
+
+def flatten_live_telemetry(reading: dict) -> list[dict]:
+    """Adapt one live Modbus telemetry snapshot into the flat
+    {tag, timestamp, value} shape IsolationForestDetector expects.
+    """
+    flat = []
+    for source_field, tag in LIVE_TELEMETRY_FIELD_MAP.items():
+        if source_field in reading:
+            flat.append(
+                {
+                    "tag": tag,
+                    "timestamp": reading.get("timestamp"),
+                    "value": reading[source_field],
+                }
+            )
+    return flat
