@@ -7,6 +7,8 @@ class AlarmItem(BaseModel):
     timestamp: str
     priority: Optional[str] = None
     message: Optional[str] = None
+    description: Optional[str] = None
+    equipment: Optional[str] = None
 
 
 class SensorReading(BaseModel):
