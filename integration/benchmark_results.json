@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-09-10T17:43:09.834330+00:00",
+  "model": "llama3.2:3b",
+  "hardware": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "cpu_cores_physical": 8,
+    "cpu_cores_logical": 12,
+    "ram_total_gb": 15.7
+  },
+  "runs": [
+    {
+      "prompt": "Why did Motor_1 trip? What do I do right now?",
+      "wall_time_s": 38.504,
+      "eval_count_tokens": 183,
+      "eval_duration_s": 22.663,
+      "tokens_per_sec": 8.07,
+      "prompt_eval_count_tokens": 88
+    },
+    {
+      "prompt": "Why did Motor_1 trip? What do I do right now?",
+      "wall_time_s": 21.291,
+      "eval_count_tokens": 185,
+      "eval_duration_s": 21.103,
+      "tokens_per_sec": 8.77,
+      "prompt_eval_count_tokens": 88
+    },
+    {
+      "prompt": "Why did Motor_1 trip? What do I do right now?",
+      "wall_time_s": 8.951,
+      "eval_count_tokens": 81,
+      "eval_duration_s": 8.73,
+      "tokens_per_sec": 9.28,
+      "prompt_eval_count_tokens": 88
+    },
+    {
+      "prompt": "A VFD current high alarm fired but motor load was normal before the trip. What should I do?",
+      "wall_time_s": 27.526,
+      "eval_count_tokens": 196,
+      "eval_duration_s": 26.453,
+      "tokens_per_sec": 7.41,
+      "prompt_eval_count_tokens": 95
+    },
+    {
+      "prompt": "A VFD current high alarm fired but motor load was normal before the trip. What should I do?",
+      "wall_time_s": 19.756,
+      "eval_count_tokens": 142,
+      "eval_duration_s": 19.561,
+      "tokens_per_sec": 7.26,
+      "prompt_eval_count_tokens": 95
+    },
+    {
+      "prompt": "A VFD current high alarm fired but motor load was normal before the trip. What should I do?",
+      "wall_time_s": 30.502,
+      "eval_count_tokens": 221,
+      "eval_duration_s": 30.328,
+      "tokens_per_sec": 7.29,
+      "prompt_eval_count_tokens": 95
+    },
+    {
+      "prompt": "LINE1.MTR_01.OVERLOAD just fired and motor_load_pct was trending above 90%. What do I do right now?",
+      "wall_time_s": 33.261,
+      "eval_count_tokens": 220,
+      "eval_duration_s": 31.909,
+      "tokens_per_sec": 6.89,
+      "prompt_eval_count_tokens": 102
+    },
+    {
+      "prompt": "LINE1.MTR_01.OVERLOAD just fired and motor_load_pct was trending above 90%. What do I do right now?",
+      "wall_time_s": 21.8,
+      "eval_count_tokens": 146,
+      "eval_duration_s": 21.584,
+      "tokens_per_sec": 6.76,
+      "prompt_eval_count_tokens": 102
+    },
+    {
+      "prompt": "LINE1.MTR_01.OVERLOAD just fired and motor_load_pct was trending above 90%. What do I do right now?",
+      "wall_time_s": 16.025,
+      "eval_count_tokens": 114,
+      "eval_duration_s": 15.745,
+      "tokens_per_sec": 7.24,
+      "prompt_eval_count_tokens": 102
+    }
+  ],
+  "summary": {
+    "tokens_per_sec_mean": 7.66,
+    "tokens_per_sec_median": 7.29,
+    "tokens_per_sec_min": 6.76,
+    "tokens_per_sec_max": 9.28,
+    "wall_time_s_mean": 24.18
+  }
+}
