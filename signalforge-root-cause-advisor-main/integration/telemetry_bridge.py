@@ -1,7 +1,6 @@
 import time
 import json
 import os
-from datetime import datetime
 from pymodbus.client import ModbusTcpClient
 
 client = ModbusTcpClient("127.0.0.1", port=5020)
@@ -18,30 +17,24 @@ while True:
     try:
         if not client.connected:
             client.connect()
-        rr = client.read_holding_registers(address=0, count=5)
+        # Read 5 registers starting at address 1
+        rr = client.read_holding_registers(address=1, count=5)
         if not rr.isError():
             status, load, tank, temp, alarm = rr.registers
             data = {
                 "timestamp": time.time(),
-                "timestamp_readable": datetime.now().strftime("%H:%M:%S"),
-                "motor_run_status": "RUNNING" if status == 1 else "TRIPPED",
-                "motor_load_pct": load,
-                "tank_level_pct": tank,
-                "bearing_temp_c": temp,
-                "active_alarm_code": alarm,
-                "root_cause_candidate": "VFD_OVERLOAD" if alarm == 14 else "NONE",
                 "Motor_1_RunStatus": "RUNNING" if status == 1 else "TRIPPED",
                 "Motor_1_Load_Pct": load,
                 "Tank_Level_Pct": tank,
                 "Bearing_Temp_C": temp,
-                "Active_Alarm_Code": alarm
+                "Active_Alarm_Code": alarm,
+                "Root_Cause_Candidate": "VFD_OVERLOAD" if alarm == 14 else "NONE"
             }
             with open(OUTPUT_FILE, "w") as f:
                 json.dump(data, f, indent=2)
-            print(f"[{data['timestamp_readable']}] [OK] Live Data -> Motor: {data['motor_run_status']} | Load: {load}% | Temp: {temp}C")
+            print(f"[OK] Live Data -> Motor: {data['Motor_1_RunStatus']} | Load: {load}% | Temp: {temp}C")
         else:
             print("[!] Could not read registers. Is modbus_sim_server running?")
     except Exception as e:
-        print(f"[!] Error: {e} (will retry connection)")
-        client.close()
+        print(f"[!] Error: {e}")
     time.sleep(1)
