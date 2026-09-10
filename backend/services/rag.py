@@ -99,11 +99,17 @@ def _format_citation(chunk: dict) -> str:
     return f"[{chunk['source']} ¶{chunk['section']}]"
 
 
-# Empirically calibrated: genuinely relevant chunks scored <=0.89 distance,
-# tangentially-related-but-not-actually-applicable content started at ~1.0,
-# and unrelated questions started at ~1.57 (see test_real_sops.py findings).
-# Chunks past this are dropped before the LLM ever sees them, so the
-# no-match guardrail doesn't depend on the model correctly self-policing.
+# Empirically calibrated against data/sops/ (see test_real_sops.py):
+# clearly relevant chunks scored ~0.6-0.91 distance, clearly unrelated
+# questions started at ~1.57. Tangentially-worded but NOT-actually-covered
+# questions land right around ~1.0 - tested at 1.05, that band let the LLM
+# hallucinate a citation to a section that doesn't exist (SOP-08 has no
+# section 3.2) rather than decline. A fabricated citation is a worse demo
+# failure than an occasional over-cautious "no match" on a vaguely-worded
+# question, so this stays tight even though it costs some recall on very
+# short/informal phrasings (confirmed: the team's actual demo phrasing,
+# "Why did Motor_1 trip? What do I do right now?", clears this with margin
+# at ~0.91).
 RELEVANCE_DISTANCE_THRESHOLD = 0.95
 
 
