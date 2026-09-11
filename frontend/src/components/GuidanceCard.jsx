@@ -1,4 +1,10 @@
-export default function GuidanceCard({ guidance }) {
+import { useState } from "react";
+import { submitFeedback } from "../api";
+
+export default function GuidanceCard({ guidance, alarmTag, onCorrectionSubmitted }) {
+  const [note, setNote] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
   if (!guidance) {
     return (
       <div className="guidance-card guidance-card--empty">
@@ -8,6 +14,19 @@ export default function GuidanceCard({ guidance }) {
   }
 
   const status = guidance.status || (guidance.cited ? "ok" : "no_match");
+
+  async function handleSubmitCorrection() {
+    const text = note.trim();
+    if (!text || submitting) return;
+    setSubmitting(true);
+    try {
+      await submitFeedback(alarmTag, text);
+      setNote("");
+      onCorrectionSubmitted?.();
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <div className={`guidance-card guidance-card--${status}`}>
@@ -43,6 +62,25 @@ export default function GuidanceCard({ guidance }) {
           </span>
         )}
       </div>
+
+      {alarmTag && (
+        <div className="guidance-card__correction">
+          <div className="guidance-field__label">Log a field correction</div>
+          <div className="guidance-card__correction-row">
+            <input
+              type="text"
+              placeholder="e.g. actual cause was a failing VFD cooling fan, not a jam"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSubmitCorrection()}
+              disabled={submitting}
+            />
+            <button onClick={handleSubmitCorrection} disabled={submitting || !note.trim()}>
+              {submitting ? "Saving…" : "Submit"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

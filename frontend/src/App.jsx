@@ -51,16 +51,16 @@ export default function App() {
       .finally(() => setAlarmsLoading(false));
   }, []);
 
-  // Fetch guidance for whichever alarm is selected.
-  useEffect(() => {
-    const alarm = alarms.find((a) => a.id === selectedId);
-    if (!alarm) return;
+  const selectedAlarm = alarms.find((a) => a.id === selectedId);
+
+  function fetchGuidance() {
+    if (!selectedAlarm) return;
     setGuidanceLoading(true);
-    explainAlarm(alarm.tag)
-      .then((rag) => setGuidance(toGuidance(rag, alarm.description || alarm.tag)))
+    explainAlarm(selectedAlarm.tag)
+      .then((rag) => setGuidance(toGuidance(rag, selectedAlarm.description || selectedAlarm.tag)))
       .catch(() =>
         setGuidance({
-          rootCause: alarm.description || alarm.tag,
+          rootCause: selectedAlarm.description || selectedAlarm.tag,
           fix: "The AI assistant is temporarily unavailable. Please retry, or consult the SOP directly.",
           citation: "",
           cited: false,
@@ -68,7 +68,10 @@ export default function App() {
         })
       )
       .finally(() => setGuidanceLoading(false));
-  }, [selectedId, alarms]);
+  }
+
+  // Fetch guidance for whichever alarm is selected.
+  useEffect(fetchGuidance, [selectedId, alarms]);
 
   return (
     <div className="hmi-shell">
@@ -94,7 +97,11 @@ export default function App() {
           {guidanceLoading ? (
             <div className="guidance-card guidance-card--empty">Loading guidance…</div>
           ) : (
-            <GuidanceCard guidance={guidance} />
+            <GuidanceCard
+              guidance={guidance}
+              alarmTag={selectedAlarm?.tag}
+              onCorrectionSubmitted={fetchGuidance}
+            />
           )}
           <ChatPanel />
         </section>

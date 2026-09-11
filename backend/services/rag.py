@@ -58,7 +58,14 @@ def _build_system_prompt(chunks: list[dict]) -> str:
 # by half every OPERATOR_NOTE_BOOST_HALFLIFE_HOURS. A note logged seconds ago
 # gets nearly the full boost; a week-old note gets almost none - stale
 # corrections shouldn't out-rank a static SOP forever.
-OPERATOR_NOTE_BOOST_MAX = 0.5
+# 0.5 was too small in practice: a query that names the alarm tag explicitly
+# (e.g. "Why did LINE1.MTR_01.OVERLOAD trip?") embeds very close to the SOP
+# chunk containing that exact tag (~0.81 distance), and even a fresh note
+# only closes about half that gap at 0.5 boost. Raised to 0.9 so a brand-new
+# note reliably outranks a well-matched SOP, confirmed via
+# /_debug/retrieve against the live tag-heavy query the frontend actually
+# sends (not just the informal phrasing used in earlier checkpoint tests).
+OPERATOR_NOTE_BOOST_MAX = 0.9
 OPERATOR_NOTE_BOOST_HALFLIFE_HOURS = 24.0
 
 
@@ -132,12 +139,22 @@ def add_operator_note(alarm_tag: str, note_text: str) -> None:
     self-improve: a fresh field correction outranks the static SOP on the
     next matching query without needing to edit the SOP itself.
     """
+    # Embed with the alarm tag as context. Without this, a query that names
+    # the tag explicitly (e.g. "Why did LINE1.MTR_01.OVERLOAD trip?") embeds
+    # very close to the matching SOP chunk (which contains that exact tag
+    # string) but not to the note (which usually doesn't repeat the tag),
+    # so the fixed recency boost isn't enough to make the note win - found
+    # via a live UI test where the note lost against a tag-heavy query
+    # despite being brand new. The document stored/embedded includes the
+    # tag; the citation shown to the user still comes from the alarm_tag
+    # metadata field via _format_citation(), not from this text.
+    embed_text = f"{alarm_tag}: {note_text}"
     collection = get_sop_collection()
-    embedding = _embedder.encode([note_text]).tolist()
+    embedding = _embedder.encode([embed_text]).tolist()
     note_id = f"note-{alarm_tag}-{datetime.now(timezone.utc).isoformat()}"
     collection.upsert(
         ids=[note_id],
-        documents=[note_text],
+        documents=[embed_text],
         embeddings=embedding,
         metadatas=[
             {
@@ -159,12 +176,20 @@ def retrieve(query: str, top_k: int = 3) -> list[dict]:
     """
     try:
         collection = get_sop_collection()
-        if collection.count() == 0:
+        count = collection.count()
+        if count == 0:
             return []
 
+        # Fetch the WHOLE collection, not just a small multiple of top_k.
+        # ChromaDB's .query() returns nearest neighbors by raw distance
+        # before any recency boost is applied - a small over-fetch window
+        # (e.g. top_k*3) can exclude an operator note entirely if its raw
+        # distance isn't already in that window, even though the boost
+        # would make it the best match. At this corpus size (tens of
+        # chunks) fetching everything and re-ranking in Python is free;
+        # this stops being fine only at a scale this project won't reach.
         query_embedding = _embedder.encode([query]).tolist()
-        n_results = min(max(top_k * 3, top_k), collection.count())
-        results = collection.query(query_embeddings=query_embedding, n_results=n_results)
+        results = collection.query(query_embeddings=query_embedding, n_results=count)
     except Exception:
         # Chroma unavailable/corrupted - degrade to "nothing retrieved" so
         # generate_answer's existing no-match path handles it cleanly,
@@ -175,6 +200,12 @@ def retrieve(query: str, top_k: int = 3) -> list[dict]:
     for text, meta, distance in zip(
         results["documents"][0], results["metadatas"][0], results["distances"][0]
     ):
+        # collection.count() can be momentarily stale relative to .query()
+        # (e.g. right after a delete elsewhere) - when n_results exceeds
+        # what's actually available, Chroma pads the result lists with
+        # None rather than truncating. Skip those instead of crashing.
+        if meta is None or text is None:
+            continue
         effective_distance = distance
         if meta.get("type") == "operator_note":
             effective_distance = distance - _recency_boost(meta.get("timestamp"))

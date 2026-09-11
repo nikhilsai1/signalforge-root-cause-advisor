@@ -304,6 +304,50 @@ button {
   color: var(--sev-critical);
 }
 
+.guidance-card__correction {
+  border-top: 1px solid var(--border);
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.guidance-card__correction-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.guidance-card__correction-row input {
+  flex: 1;
+  background: var(--bg-panel-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 10px;
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.guidance-card__correction-row input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.guidance-card__correction-row button {
+  background: var(--bg-panel-raised);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+.guidance-card__correction-row button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.guidance-card__correction-row button:disabled {
+  opacity: 0.5;
+}
+
 .chat-panel {
   flex: 1;
   display: flex;
