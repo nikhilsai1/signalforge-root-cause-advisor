@@ -1,5 +1,5 @@
 /* ============================================================
-   SentinalHMI shell — design tokens
+   Root Cause Advisor shell — design tokens
    Deliberately built on system fonts, not a web-font import:
    the product's entire pitch is "runs fully offline, no external
    calls," so pulling a font from a CDN would undercut the one
@@ -525,4 +525,120 @@ button {
 .alarm-card--nested {
   margin-left: 14px;
   width: calc(100% - 14px);
+}
+
+.hmi-shell__raw-feed-link {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.hmi-shell__raw-feed-link:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+/* ============================================================
+   Raw alarm feed — the "before" screen. Deliberately a different
+   visual language from the HMI shell above: stark black/amber
+   legacy SCADA banner, dense flat table, no clustering, no AI —
+   the contrast is the point.
+   ============================================================ */
+
+.raw-feed {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  color: #d8d8d0;
+  font-family: var(--font-data);
+}
+
+.raw-feed__topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  background: #0c0c0a;
+  border-bottom: 2px solid #3a3a30;
+  flex-shrink: 0;
+}
+
+.raw-feed__title {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: #e0a838;
+}
+
+.raw-feed__count {
+  flex: 1;
+  font-size: 12px;
+  color: #e5484d;
+  font-weight: 700;
+}
+
+.raw-feed__launch {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-ui);
+}
+
+.raw-feed__launch:hover {
+  background: #24a35c;
+}
+
+.raw-feed__scroll {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.raw-feed__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.raw-feed__table th {
+  position: sticky;
+  top: 0;
+  background: #16160f;
+  color: #8a8a78;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 8px 14px;
+  border-bottom: 1px solid #3a3a30;
+}
+
+.raw-feed__table td {
+  padding: 5px 14px;
+  border-bottom: 1px solid #202018;
+  white-space: nowrap;
+}
+
+.raw-feed__table td:nth-child(3) {
+  white-space: normal;
+}
+
+.raw-feed__row--critical td { color: #ff5c5c; }
+.raw-feed__row--high td { color: #f2994a; }
+.raw-feed__row--medium td { color: #e0c840; }
+.raw-feed__row--low td { color: #7fbfe0; }
+
+@media (max-width: 800px) {
+  .raw-feed__table td:nth-child(1),
+  .raw-feed__table th:nth-child(1) {
+    display: none;
+  }
 }
