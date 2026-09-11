@@ -124,6 +124,8 @@ Every RAG-backed route returns `{answer, citations, no_match, error}` — `no_ma
 6. **Generate Shift Handover** — auto-summarizes the shift.
 7. Fully offline: disconnect the network, the pipeline still answers from the local model.
 
+For judge Q&A — every design decision explained in plain English and technical terms, plus the real bugs we found and fixed while testing: [`docs/technical-deep-dive.md`](docs/technical-deep-dive.md).
+
 ## Team
 
 - **Nikhil** — backend: RAG pipeline, anomaly detection, alarm clustering, guardrails
