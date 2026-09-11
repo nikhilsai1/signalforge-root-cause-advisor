@@ -16,7 +16,7 @@ export default function RawAlarmFeed({ alarms, onLaunch }) {
         <span className="raw-feed__title">LINE 1 — ALARM SUMMARY</span>
         <span className="raw-feed__count">{sorted.length} ACTIVE</span>
         <button className="raw-feed__launch" onClick={onLaunch}>
-          Launch SentinalHMI →
+          Launch Root Cause Advisor →
         </button>
       </div>
 

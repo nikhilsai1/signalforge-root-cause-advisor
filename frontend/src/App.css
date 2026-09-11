@@ -1,5 +1,5 @@
 /* ============================================================
-   SentinalHMI shell — design tokens
+   Root Cause Advisor shell — design tokens
    Deliberately built on system fonts, not a web-font import:
    the product's entire pitch is "runs fully offline, no external
    calls," so pulling a font from a CDN would undercut the one

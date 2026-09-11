@@ -84,7 +84,7 @@ export default function App() {
   return (
     <div className="hmi-shell">
       <header className="hmi-shell__topbar">
-        <div className="hmi-shell__brand">SentinalHMI</div>
+        <div className="hmi-shell__brand">Root Cause Advisor</div>
         <div className="hmi-shell__line">
           Line 1 · Runtime Copilot
           {alarmsError && <span className="hmi-shell__error"> · backend unreachable</span>}
