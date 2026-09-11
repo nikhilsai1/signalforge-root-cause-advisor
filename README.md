@@ -27,6 +27,18 @@ Alarm flood (40+ alarms) ──▶ ISA-18.2 flood detection ──▶ root alarm
 - **Fully offline** — inference runs against a local Ollama model; no data leaves the plant network.
 - **Real Modbus/EcoStruxure integration path** — a Modbus TCP bridge can feed live PLC/simulator tag data in alongside (or instead of) the synthetic flood.
 
+## Screenshots
+
+**Alarm flood clustered to one root cause, with a grounded, cited answer:**
+
+![Alarm flood and guidance card](docs/screenshots/1_alarm_flood_and_guidance.png)
+
+**Self-improving feedback loop — same question, before and after an operator correction:**
+
+| Before: generic SOP | After: operator's own correction |
+|---|---|
+| ![Before: generic SOP answer](docs/screenshots/2a_before_generic_sop.png) | ![After: operator correction wins](docs/screenshots/2b_after_operator_correction.png) |
+
 ## Project structure
 
 ```
@@ -38,6 +50,8 @@ docs/           Architecture notes, EcoStruxure integration plan
 ```
 
 ## Running it
+
+Backend and frontend are two separate processes — run each in its own terminal, both need to stay up together.
 
 ### Backend
 
@@ -58,6 +72,8 @@ Ingest the SOP library into ChromaDB before asking real questions (one-time, or 
 ```bash
 python scripts/test_real_sops.py
 ```
+
+> **First-run gotcha:** the embedding model (`all-MiniLM-L6-v2`) downloads from Hugging Face the first time you ingest. On some networks the fast "Xet" CDN path silently hangs at 0 bytes instead of erroring. If ingestion or the first request seems to hang forever, set `HF_HUB_DISABLE_XET=1` before running Python — it forces the plain-HTTPS fallback, which is slower but reliable. It's a one-time download; cached after that.
 
 ### Frontend
 
@@ -80,6 +96,8 @@ cd integration
 python modbus_sim_server.py      # simulated PLC, or point at real EcoStruxure
 python telemetry_bridge.py       # polls tags, writes data/live_telemetry.json
 ```
+
+Wiring a real EcoStruxure HMI screen to this same simulator as a second Modbus client: [`docs/ecostruxure-integration-plan.md`](docs/ecostruxure-integration-plan.md).
 
 ## API
 
