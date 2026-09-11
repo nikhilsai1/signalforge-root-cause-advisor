@@ -30,10 +30,17 @@ start_time = time.monotonic()
 # matching standard Modbus wire addressing (address 0 = first holding register).
 # Without it, pymodbus applies its legacy +1 offset and every read comes back
 # shifted by one register.
+#
+# Pinned to pymodbus==3.8.6 in requirements (see integration/requirements.txt):
+# 3.13+ renamed this whole API (ModbusSlaveContext -> ModbusDeviceContext,
+# setValues/getValues gone, zero_mode removed) as part of deprecating it
+# entirely in favor of a new SimData/SimDevice model landing in v4. That's a
+# real rewrite, not a drop-in swap - pinning to the version this was actually
+# built and tested against is the safe fix under time pressure.
 store = ModbusSlaveContext(
     hr=ModbusSequentialDataBlock(0, [1, 70, 62, 72, 0]),
-    zero_mode=True,
 )
+store.zero_mode = True
 context = ModbusServerContext(slaves=store, single=True)
 
 
